@@ -38,6 +38,12 @@ npm run dev
 Frontend: http://localhost:5173
 Backend: http://localhost:5000
 
+## Documentation
+
+- Overview / system guide: [docs/SYSTEM_GUIDE.md](docs/SYSTEM_GUIDE.md)
+- User guide: [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
+- Admin guide: [docs/ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md)
+
 ## ESP32 integration
 
 The backend is ready for a later ESP32 integration.
