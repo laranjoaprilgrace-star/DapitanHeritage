@@ -253,6 +253,9 @@ function App() {
   }), [baseSites, api.live.overrides]);
 
   const selected = sites.find(s => s.id === selectedId) || sites[0];
+  // Messages for "All sites" (siteId = null) show to everyone.
+  // Messages for one site only show while the visitor has that site selected.
+  const visibleMessages = api.live.messages.filter(m => !m.siteId || m.siteId === selected?.id);
   const ranked = useMemo(() => [...sites].sort((a,b) => a.percent - b.percent), [sites]);
   const nameOf = id => sites.find(s => s.id === id)?.shortName || sites.find(s => s.id === id)?.name || "All sites";
 
@@ -299,12 +302,6 @@ function App() {
 
       <div className="search"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search heritage sites..." /></div>
 
-      {api.live.messages.length > 0 && <section className="notices" aria-label="Notices">
-        {api.live.messages.slice(0,3).map(m => <div className="notice" key={m.id}>
-          <span className="notice-tag">{nameOf(m.siteId)}</span><p>{m.text}</p><time>{formatTime(m.createdAt)}</time>
-        </div>)}
-      </section>}
-
       {tab === "Map" && <section className="map-card">
         <div className="map-head"><div><strong>Heritage Map</strong><span>Live map • Dapitan City</span></div><span className="live">● LIVE</span></div>
         <div className="map-box">
@@ -331,6 +328,12 @@ function App() {
       </section>}
 
       {tab === "My Itinerary" && <section className="itinerary"><div className="section-title"><span>My Itinerary</span><small>Build your heritage route</small></div><p className="empty">Choose a site from the Heritage Sites tab to start exploring. Use <b>Get Directions</b> to navigate from your current location.</p></section>}
+
+      {visibleMessages.length > 0 && <section className="notices" aria-label="Notices">
+        {visibleMessages.map(m => <div className="notice" key={m.id}>
+          <span className="notice-tag">{m.siteId ? nameOf(m.siteId) : "All sites"}</span><p>{m.text}</p><time>{formatTime(m.createdAt)}</time>
+        </div>)}
+      </section>}
 
       <section className={`selected-card ${statusClass(selected)}`}>
         <div className="selected-top"><div><span className="eyebrow">SELECTED SITE</span><h2>{selected.name}</h2><p>{selected.address}</p></div><span className={`status-badge ${statusClass(selected)}`}>{selected.status}</span></div>
