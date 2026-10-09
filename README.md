@@ -1,5 +1,7 @@
 # Dapitan Heritage Tourism — Full Stack Thesis Prototype
 
+The Dapitan Rizal Heritage Tourism system is a full-stack web application designed to help visitors explore heritage sites in Dapitan City and understand crowd conditions before visiting.
+
 A reusable React + Express project for the Dapitan City Rizal Heritage Tourism thesis.
 
 ## Folder structure
